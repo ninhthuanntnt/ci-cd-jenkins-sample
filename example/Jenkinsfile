@@ -3,9 +3,13 @@ pipeline {
     options {
         skipStagesAfterUnstable()
     }
+    parameters {
+        string(name: 'BRANCH', description: 'Branch to build')
+    }
     stages {
         stage('Build') {
             steps {
+                printenv
                 print 'Branch to build is ' + prams.BRANCH
                 echo 'Building'
             }
