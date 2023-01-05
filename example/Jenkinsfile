@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                print 'Branch to build is ' + prams.BRANCH
+                print 'Branch to build is ' + params.BRANCH
                 echo 'Building'
             }
         }
