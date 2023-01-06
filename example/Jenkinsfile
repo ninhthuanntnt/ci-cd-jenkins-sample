@@ -18,11 +18,10 @@ pipeline {
             steps {
                 print 'Branch to build is ' + params.BRANCH
                 echo 'Building'
-                sh '''
-                    cd example
-                    chmod +x gradlew
-                    ./gradlew build -x test
-                '''
+
+                cd example
+                chmod +x gradlew
+                ./gradlew build -x test
             }
         }
         stage('Test') {
