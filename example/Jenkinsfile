@@ -6,11 +6,17 @@ pipeline {
     parameters {
         string(name: 'BRANCH', description: 'Branch to build')
     }
+    stages ('Test commands') {
+
+    }
     stages {
         stage('Build') {
             steps {
                 print 'Branch to build is ' + params.BRANCH
                 echo 'Building'
+                cd example
+                chmod +x gradlew
+                ./gradlew build -x test
             }
         }
         stage('Test') {
