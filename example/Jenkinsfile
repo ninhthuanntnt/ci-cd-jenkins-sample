@@ -6,10 +6,12 @@ pipeline {
     parameters {
         string(name: 'BRANCH', description: 'Branch to build')
     }
-    stages ('Test commands') {
 
-    }
     stages {
+        stage ('Test commands') {
+
+        }
+
         stage('Build') {
             steps {
                 print 'Branch to build is ' + params.BRANCH
