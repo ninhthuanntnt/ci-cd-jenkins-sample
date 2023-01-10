@@ -1,0 +1,23 @@
+version: "3.9"
+name: jenkins-and-ssh-server
+services:
+  openssh-server:
+    image: linuxserver/openssh-server:latest
+    container_name: openssh-server
+    ports:
+      - 2222:2222
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - PUBLIC_KEY=ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC6Bhtdia93qZcegnq6UzDiV36FknamWob979wrC7cSQMfp0OKn67PBM6UatpuIMzZXd3/BgYIZuZTM+IbQs7nFcSIds0mtXD2VSlrRUnTRTqpglYKdRCWsplr3co9aIbj9mxdePT1uy7ea12t8nR0SFuSfjUAHQjl0W8cicgCfQS2Xe+6zwKuAyAXhTuBTrblKlMxzIuOuiVAPIiRkc2LUIT23q5y/5XKuup+uuZsNSlDtIDWUbxY+AXeqPZ7q/edICfcKKfxDjBfW3TnWaOoxYwTs8OtVd3wkta6uJ6EP3fqofZM9InTrTiCNNjb47KfKZHEQzQ4W1+cuohq05jHLMPttwxq9FSNri5eiknIiDeCCkc9qqoviyUANlfxceAymMJ0PhsXts1K8sYfxpzzKr7PmcsiA8uRpIHyK7L0vQYpzm1jSQjWhl1FARPjfG5uCysCHQQIBk0ECxOUSDUMhfww4JLtWhdNKnF0kl1AnZnv61vlZWMfkm/06ddj8H1U= EPAM+Thuan_Nguyen1@EPVNHOCW0195 #optional
+      - SUDO_ACCESS=true #optional
+      - PASSWORD_ACCESS=false #optional
+      - USER_PASSWORD=password #optional
+      - USER_NAME=openssh #optionalg
+  jenkins-server:
+    image: jenkins/jenkins:lts-jdk11
+    container_name: jenkins-server
+    ports:
+      - 8080:8080
+
+
