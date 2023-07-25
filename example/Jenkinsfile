@@ -4,7 +4,7 @@ pipeline {
         skipStagesAfterUnstable()
     }
     parameters {
-        string(name: 'BRANCH_NAME', description: 'Branch to build')
+        string(name: 'BRANCH_NAME', description: 'Branch to build', defaultValue: 'main')
     }
 
     stages {
