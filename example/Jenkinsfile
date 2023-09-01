@@ -13,17 +13,28 @@ pipeline {
     }
 
     stages {
+		stage("Check environment") {
+			steps {
+				cleanWs()
+				sh 'whoami'
+				sh 'printenv'
+			}
+		}
+
         stage('SonarQube Scan') {
             steps {
                 withSonarQubeEnv(installationName: 'SonarQubeScanner') {
-                            sh "
-                                cd example
-                                ./gradlew sonarqube \
-                                -Dsonar.projectKey=${serviceName} \
-                                -Dsonar.host.url=${env.SONAR_HOST_URL} \
-                                -Dsonar.login=${env.SONAR_AUTH_TOKEN} \
-                                -Dsonar.projectName=${serviceName} \
-                                -Dsonar.projectVersion=${BUILD_NUMBER}"
+                    sh '''
+                        cd example
+                        chmod +x gradlew
+                        echo ${env.SONAR_HOST_URL}
+                        ./gradlew sonarqube \
+                        -Dsonar.projectKey=${serviceName} \
+                        -Dsonar.host.url=${env.SONAR_HOST_URL} \
+                        -Dsonar.login=${env.SONAR_AUTH_TOKEN} \
+                        -Dsonar.projectName=${serviceName} \
+                        -Dsonar.projectVersion=${BUILD_NUMBER}
+                    '''
                 }
             }
         }
