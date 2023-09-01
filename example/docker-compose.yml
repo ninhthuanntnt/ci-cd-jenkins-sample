@@ -13,11 +13,15 @@ services:
       - SUDO_ACCESS=true #optional
       - PASSWORD_ACCESS=false #optional
       - USER_PASSWORD=password #optional
-      - USER_NAME=openssh #optionalg
+      - USER_NAME=openssh #optional
   jenkins-server:
-    image: jenkins/jenkins:lts-jdk11
+#  using dockerfile
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ninhthuanntnt/jenkins-server:latest
     container_name: jenkins-server
+    volumes:
+      - //var/run/docker.sock:/var/run/docker.sock
     ports:
       - 8080:8080
-
-

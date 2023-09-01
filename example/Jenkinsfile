@@ -3,14 +3,26 @@ pipeline {
     options {
         skipStagesAfterUnstable()
     }
+
+    environment {
+        serviceName = 'example'
+    }
+
     parameters {
         string(name: 'BRANCH_NAME', description: 'Branch to build', defaultValue: 'main')
     }
 
     stages {
-        stage ('Test commands') {
+        stage('SonarQube Scan') {
             steps {
-                print 'Test'
+                withSonarQubeEnv(installationName: 'SonarQubeScanner') {
+                            sh "./gradlew sonarqube \
+                              -Dsonar.projectKey=${serviceName} \
+                              -Dsonar.host.url=${env.SONAR_HOST_URL} \
+                              -Dsonar.login=${env.SONAR_AUTH_TOKEN} \
+                              -Dsonar.projectName=${serviceName} \
+                              -Dsonar.projectVersion=${BUILD_NUMBER}"
+                }
             }
         }
 
