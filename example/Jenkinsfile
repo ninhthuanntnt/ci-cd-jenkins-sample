@@ -13,14 +13,6 @@ pipeline {
     }
 
     stages {
-		stage("Check environment") {
-			steps {
-				cleanWs()
-				sh 'whoami'
-				sh 'printenv'
-			}
-		}
-
         stage('SonarQube Scan') {
             steps {
                 withSonarQubeEnv(installationName: 'SonarQubeScanner') {
