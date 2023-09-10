@@ -15,6 +15,11 @@ pipeline {
     stages {
         stage('SonarQube Scan') {
             steps {
+                sh '''
+                    cd example
+                    chmod +x gradlew
+                    echo 'OK'
+                '''
                 withSonarQubeEnv(installationName: 'SonarQubeScanner') {
                     sh '''
                         cd example
